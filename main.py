@@ -1,8 +1,10 @@
 import argparse
 import pdb
 from typing import List
+import shutil
 import time
 import numpy as np
+from outfile import move_file
 from draw import center, draw
 from yolo import yolo_ultralytics_detections_to_norfair_detections,tracker_to_input
 from ultralytics import YOLO
@@ -11,6 +13,7 @@ from norfair import AbsolutePaths, Paths, Tracker, Video
 from norfair.camera_motion import HomographyTransformationGetter, MotionEstimator
 from norfair.distances import create_normalized_mean_euclidean_distance
 # from main import my_detector
+
 DISTANCE_THRESHOLD_CENTROID: float = 0.08
 
 
@@ -83,7 +86,7 @@ def inference(
             period=5
         )
         # points_detected = tracker_to_input(tracked_objects)
-        print(tracked_objects)
+        # print(tracked_objects)
         frame = draw(
             paths_drawer,
             track_points,
@@ -96,6 +99,13 @@ def inference(
         video.write(frame)
 
     print("time: ",time.time() - st)
+    video_name = input_video.split("/")[-1]
+    # print("video_name",video_name)
+    video_name = video_name.split(".mp4")[0]
+    # print("video_name",video_name)
+    video_name = video_name + "_out.mp4"
+
+    move_file(video_name)
 
 #
 # if __name__ == "__main__":
