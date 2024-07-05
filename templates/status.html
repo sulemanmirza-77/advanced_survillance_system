@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Video Status
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Video ID: {{ video_id }}</h5>
+                <p class="card-text">Status: {{ status }}</p>
+                <a class="btn btn-primary mt-3" href="{{ download_link }}" download>Download Processed Video</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
