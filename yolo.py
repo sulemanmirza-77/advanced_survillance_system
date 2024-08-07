@@ -108,8 +108,24 @@ def yolo_ultralytics_detections_to_norfair_detections(
             scores = np.array(
                 [conf.item(), conf.item()]
             )
-            # print(scores)
-            norfair_detections.append(Detection(points=bbox, scores=scores, label=cls_names[int(cls)]))
+            cls_name = cls_names[int(cls)]
+            ############################################################################################################
+            # Person Fall Detection
+            if cls_name =='person':
+                y_0 = box[3].item() -  box[1].item()
+                x_0 = box[2].item() -  box[0].item()
+                diff = y_0 - x_0
+
+                if ((y_0 > 100) & (x_0 > 100) & (diff < -20)):
+                    norfair_detections.append(Detection(points=bbox, scores=scores, label='PERSON FALL DETECTED'))
+                    ####################################################################################################
+                    # alert / Notification code here
+                else:
+                    norfair_detections.append(Detection(points=bbox, scores=scores, label=cls_name))
+
+            else:
+
+                norfair_detections.append(Detection(points=bbox, scores=scores, label=cls_name))
 
     return norfair_detections
 
