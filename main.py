@@ -49,7 +49,7 @@ def inference(input_video: str, output_video: str, model="yolov8", track_points=
 
         if frame_count == 1 or frame_count % 6 == 0:
             yolo_detections = model.predict(frame)
-            detections = yolo_ultralytics_detections_to_norfair_detections(yolo_detections, track_points=track_points)
+            detections = yolo_ultralytics_detections_to_norfair_detections(yolo_detections,frame, frame_count, track_points=track_points)
         else:
             detections = None
 

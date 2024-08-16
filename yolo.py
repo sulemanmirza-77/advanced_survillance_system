@@ -1,9 +1,10 @@
 import os
 import pdb
 from typing import List, Optional, Union
-
+from send_mail import send_mail
 import numpy as np
 import torch
+import cv2
 
 from norfair import Detection
 
@@ -85,7 +86,7 @@ def yolo_detections_to_norfair_detections(
 
 
 def yolo_ultralytics_detections_to_norfair_detections(
-    yolo_detections: torch.tensor, track_points: str = "centroid"  # bbox or centroid
+    yolo_detections: torch.tensor, frame, frame_count, track_points: str = "centroid",   # bbox or centroid
 ) -> List[Detection]:
     """convert detections_as_xywh to norfair detections"""
     norfair_detections: List[Detection] = []
@@ -119,7 +120,11 @@ def yolo_ultralytics_detections_to_norfair_detections(
                 if ((y_0 > 100) & (x_0 > 100) & (diff < -20)):
                     norfair_detections.append(Detection(points=bbox, scores=scores, label='PERSON FALL DETECTED'))
                     ####################################################################################################
-                    # alert / Notification code here
+                    # alert / Notification code
+                    # img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    # cv2.imwrite(f'fall_alert{frame_count}.jpg',img)
+                    # send_mail(f'fall_alert{frame_count}.jpg')
+
                 else:
                     norfair_detections.append(Detection(points=bbox, scores=scores, label=cls_name))
 
