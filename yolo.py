@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 from send_mail import send_mail
 import numpy as np
 import torch
-import cv2
+# import cv2
 
 from norfair import Detection
 
