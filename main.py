@@ -77,7 +77,7 @@ def inference(input_video: str, output_video: str, model="yolov8", track_points=
     # print("video_name",video_name)
     video_name = video_name + "_out.mp4"
 
-    move_file(video_name)
+    # move_file(video_name)
 
 #
 # if __name__ == "__main__":

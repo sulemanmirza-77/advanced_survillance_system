@@ -19,13 +19,16 @@ login_manager.login_view = 'login'
 
 from models import User
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -45,6 +48,7 @@ def login():
         flash("Invalid username or password")
     return render_template('login.html', form=form)
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -56,16 +60,19 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
     return render_template('dashboard.html', name=current_user.username)
+
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
@@ -88,6 +95,7 @@ def upload():
             return redirect(url_for('status', video_id=processed_filename))
     return render_template('upload.html', form=form)
 
+
 @app.route('/status/<video_id>')
 @login_required
 def status(video_id):
@@ -95,10 +103,12 @@ def status(video_id):
     # For now, just return a dummy status
     return render_template('status.html', video_id=video_id, status="Processing Completed", download_link=url_for('download_video', filename=video_id))
 
+
 @app.route('/videos/<path:filename>')
 @login_required
 def download_video(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 
 if __name__ == '__main__':
     with app.app_context():
