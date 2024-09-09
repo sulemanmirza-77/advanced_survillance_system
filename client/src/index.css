@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.fade-out {
+  opacity: 0;
+}
+
+html, body{
+  font-family: 'Poppins', sans-serif;
+}
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #8f54a0 #000000;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: -2px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #8f54a0;
+    border-radius: 2px;
+    border: 1px none #ffffff;
+  }
+body{
+  background-color: #0f0f0f !important;
+  color: #fff;
+}
+
+img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+iframe{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.sc-gJiVIX img,.sc-cwKisF img{object-fit: cover;}
+a,button{cursor: pointer;text-decoration: none !important;color: #fff;}
+.side-menu a{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 40px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  cursor: pointer;}
+  .side-menu a:hover{background-color: #282828;}
+.side-menu a span{ color: #f1f1f1;
+  font-size: 14px;
+  margin-left: 13px;
+  font-weight: 500;}
+  .profile img{cursor: pointer;}
+  .similar-thumbnail img{height: 170px;}
+
+  .video-player {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .video-info img {
+    border-radius: 50%;
+  }
+  
+  .card-img-top {
+    height: 180px;
+    object-fit: cover;
+  }
+  .detail-profie img{width: 80px;}
+  .A-DrPH{display: block !important;width: unset !important;}
+  .capApd{display: block !important;}
+  .thumbnail-description .name{margin-right: 15px;}
+  .channel-thumbnail img{height: 150px !important;}
+  
