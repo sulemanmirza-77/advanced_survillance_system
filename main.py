@@ -15,13 +15,16 @@ from norfair.distances import create_normalized_mean_euclidean_distance
 
 DISTANCE_THRESHOLD_CENTROID: float = 0.08
 
-def inference(input_video: str, output_video: str, model="yolov8", track_points='bbox', model_threshold="0.25", classes=0):
+def inference(input_video: str, output_video: str=None, model="yolov8", track_points='bbox', model_threshold="0.25", classes=0):
     st = time.time()
     coord_transformations = None
     paths_drawer = None
     fix_paths = True
+    out_path = input_video.split("/")[1]
+    out_path = "videos/" + out_path
+    print(input_video,out_path)
     model = YOLO('models/yolov8l-world.pt')
-    video = Video(input_path=input_video, output_path=output_video)
+    video = Video(input_path=input_video, output_path=out_path)
 
     transformations_getter = HomographyTransformationGetter()
     motion_estimator = MotionEstimator(

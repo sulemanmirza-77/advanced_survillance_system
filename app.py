@@ -1,116 +1,79 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, flash, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, UploadForm
+from flask_cors import CORS
 from main import inference
-from extensions import db
 import os
-import uuid
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+CORS(app)
 app.config['UPLOAD_FOLDER'] = 'videos'
 
-db.init_app(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
 
-from models import User
+from flask import Flask, request, jsonify
+import os
+import json
 
+app = Flask(__name__)
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Set the upload folder for videos
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+OUTPUT_FOLDER = 'videos'
+app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user:
-            print(f"Found user: {user.username}")
-            if check_password_hash(user.password, form.password.data):
-                print("Password is correct")
-                login_user(user)
-                return redirect(url_for('dashboard'))
-            else:
-                print("Password is incorrect")
-        else:
-            print("User not found")
-        flash("Invalid username or password")
-    return render_template('login.html', form=form)
+# Ensure the upload folder exists
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+# Ensure the upload folder exists
+if not os.path.exists(OUTPUT_FOLDER):
+    os.makedirs(OUTPUT_FOLDER)
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-        new_user = User(username=form.username.data, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+# Health check endpoint
+@app.route('/', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy"}), 200
 
 
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('dashboard.html', name=current_user.username)
+# Combined route to upload video and start the inference process
+@app.route('/upload-and-process', methods=['POST'])
+def upload_and_process():
+    try:
+        # Check if there's a video file in the request
+        if 'video' not in request.files:
+            return jsonify({'status': 'error', 'message': 'No video file provided'}), 400
+
+        video = request.files['video']
+
+        # Check if the file has a valid name
+        if video.filename == '':
+            return jsonify({'status': 'error', 'message': 'No selected video file'}), 400
+
+        # Save the video to the uploads folder
+        video_path = os.path.join(app.config['UPLOAD_FOLDER'], video.filename)
+        print(video_path)
+        video.save(video_path)
+
+        # Send a response immediately after upload and then process the video asynchronously
+        response = jsonify({'status': 'success', 'message': 'Video uploaded successfully and processing has started', 'path': video_path})
+        response.status_code = 200
+
+        def after_request_func(response):
+            def closure():
+                # Call the inference function after the response is sent
+                inference(video_path)
+
+            response.call_on_close(closure)
+            return response
+
+        return after_request_func(response)
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-
-@app.route('/upload', methods=['GET', 'POST'])
-@login_required
-def upload():
-    form = UploadForm()
-    if form.validate_on_submit():
-        file = form.file.data
-        if file:
-            filename = file.filename
-            original_filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(original_filepath)
-            
-            # Generate a unique filename for the processed video
-            processed_filename = f"processed_{uuid.uuid4().hex}_{filename}"
-            processed_filepath = os.path.join(app.config['UPLOAD_FOLDER'], processed_filename)
-            
-            # Start processing the video
-            inference(original_filepath, processed_filepath)
-            
-            return redirect(url_for('status', video_id=processed_filename))
-    return render_template('upload.html', form=form)
-
-
-@app.route('/status/<video_id>')
-@login_required
-def status(video_id):
-    # Check the status of the processed video
-    # For now, just return a dummy status
-    return render_template('status.html', video_id=video_id, status="Processing Completed", download_link=url_for('download_video', filename=video_id))
-
-
-@app.route('/videos/<path:filename>')
-@login_required
-def download_video(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+
+    app.run(host="0.0.0.0",port=5000)
