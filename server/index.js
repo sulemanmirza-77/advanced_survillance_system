@@ -19,7 +19,7 @@ app.use("/videos", express.static(path.join(__dirname, "public/videos")));
 /* Middleware */
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://35.223.72.44:3000",
   })
 );
 app.use(express.json());
@@ -40,7 +40,7 @@ const { MONGO_USERNAME, MONGO_PASSWORD } = process.env;
 mongoose
   .connect(
     // `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ac-6vo8h6r-shard-00-00.6hewl1m.mongodb.net:27017,ac-6vo8h6r-shard-00-01.6hewl1m.mongodb.net:27017,ac-6vo8h6r-shard-00-02.6hewl1m.mongodb.net:27017/?ssl=true&replicaSet=atlas-13w5qh-shard-0&authSource=admin&retryWrites=true&w=majority`,
-    `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.nwrepyj.mongodb.net/yourDatabaseName?retryWrites=true&w=majority`,
+    `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.t93p3.mongodb.net/yourDatabaseName?retryWrites=true&w=majority`,
 
     {
       useNewUrlParser: true,

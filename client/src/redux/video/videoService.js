@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const HTTP_URL = "http://localhost:5500/api/video";
+const HTTP_URL = "http://0.0.0.0:5500/api/video";
 
 const getRandomVideo = async () => {
   try {
