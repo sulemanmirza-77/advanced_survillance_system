@@ -51,7 +51,7 @@ const UploadVideoPage = () => {
   
     try {
       const response = await axios.post(
-        "http://0.0.0.0:5500/api/video/",
+        "http://35.223.72.44:5500/api/video/",
         videoData, 
         {
           headers: {
@@ -73,7 +73,7 @@ const UploadVideoPage = () => {
         processData.append("faceRecognition", features.faceRecognition);
   
         const processResponse = await axios.post(
-          "http://34.72.52.90:5000/upload-and-process",
+          "http://35.223.72.44:5000/upload-and-process",
           processData,
           {
             headers: {
