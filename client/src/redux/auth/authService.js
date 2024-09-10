@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const HTTP_URL = "http://10.128.0.5:5500/api/auth";
+const HTTP_URL = "http://0.0.0.0:5500/api/auth";
 
 const register = async (userData) => {
   try {

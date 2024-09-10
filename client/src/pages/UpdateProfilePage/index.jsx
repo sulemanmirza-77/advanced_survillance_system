@@ -31,7 +31,7 @@ const UpdateProfilePage = () => {
     data.append("about", about);
 
     const response = await axios.put(
-      `http://10.128.0.5:5500/api/user/update/${id}`,
+      `http://0.0.0.0:5500/api/user/update/${id}`,
       data,
       {
         headers: {

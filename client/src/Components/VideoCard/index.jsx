@@ -8,7 +8,7 @@ import axios from "axios";
 const VideoCard = ({ videos, index }) => {
   const handleIncView = async () => {
     try {
-      await axios.put(`http://10.128.0.5:5500/api/video/view/${videos?._id}`);
+      await axios.put(`http://0.0.0.0:5500/api/video/view/${videos?._id}`);
     } catch (error) {
       console.log(error);
     }
