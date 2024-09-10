@@ -48,7 +48,7 @@ const VideoEditPage = () => {
     }
 
     const response = await axios.put(
-      `http://0.0.0.0:5500/api/video/edit/${id}`,
+      `http://35.223.72.44:5500/api/video/edit/${id}`,
       data,
       {
         headers: {

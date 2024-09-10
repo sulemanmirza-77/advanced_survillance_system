@@ -51,7 +51,7 @@ const UploadVideoPage = () => {
   
     try {
       const response = await axios.post(
-        "http://0.0.0.0:5500/api/video/",
+        "http://35.223.72.44:5500/api/video/",
         videoData, 
         {
           headers: {
