@@ -7,8 +7,8 @@ const uploadVideo = asyncHandler(async (req, res) => {
       userId: req.user.id,
       title: req.body.title,
       desc: req.body.desc,
-      thumbnail_url: `http://35.223.72.44:5500/images/${req.savedImage}`,
-      video_url: `http://35.223.72.44:5500/videos/${req.savedVideo}`,
+      thumbnail_url: `http://10.128.0.5:5500/images/${req.savedImage}`,
+      video_url: `http://10.128.0.5:5500/videos/${req.savedVideo}`,
     });
 
     await newVideo.save();
@@ -33,10 +33,10 @@ const editVideo = asyncHandler(async (req, res) => {
             title: req.body.title,
             desc: req.body.desc,
             thumbnail_url: req.savedImage
-              ? `http://35.223.72.44:5500/images/${req.savedImage}`
+              ? `http://10.128.0.5:5500/images/${req.savedImage}`
               : video.thumbnail_url,
             video_url: req.savedVideo
-              ? `http://35.223.72.44:5500/videos/${req.savedVideo}`
+              ? `http://10.128.0.5:5500/videos/${req.savedVideo}`
               : video.video_url,
           },
         },

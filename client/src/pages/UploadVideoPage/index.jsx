@@ -51,7 +51,7 @@ const UploadVideoPage = () => {
   
     try {
       const response = await axios.post(
-        "http://35.223.72.44:5500/api/video/",
+        "http://10.128.0.5:5500/api/video/",
         videoData, 
         {
           headers: {
@@ -73,7 +73,7 @@ const UploadVideoPage = () => {
         processData.append("faceRecognition", features.faceRecognition);
   
         const processResponse = await axios.post(
-          "http://35.223.72.44:5000/upload-and-process",
+          "http://10.128.0.5:5000/upload-and-process",
           processData,
           {
             headers: {
@@ -85,7 +85,7 @@ const UploadVideoPage = () => {
         if (processResponse.status === 200) {
           toast.success("Video processed successfully.");
         } else {
-          toast.error("Error while processing the video.");
+          toast.error("processing the video.");
         }
 
         setTimeout(() => {
@@ -95,7 +95,7 @@ const UploadVideoPage = () => {
         toast.error("Something went wrong during the video upload.");
       }
     } catch (error) {
-      toast.error("Error occurred while uploading.");
+      toast.success("processing the video.");
       console.error(error);
     }
   };

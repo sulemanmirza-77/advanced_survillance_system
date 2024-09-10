@@ -44,7 +44,7 @@ const CurrentVideoPage = () => {
     } else {
       try {
         const response = await axios.put(
-          `http://35.223.72.44:5500/api/user/sub/${currentVideo?.userId?._id}`,
+          `http://10.128.0.5:5500/api/user/sub/${currentVideo?.userId?._id}`,
           null,
           {
             headers: {
@@ -68,7 +68,7 @@ const CurrentVideoPage = () => {
     } else {
       try {
         const response = await axios.put(
-          `http://35.223.72.44:5500/api/user/unSub/${currentVideo?.userId?._id}`,
+          `http://10.128.0.5:5500/api/user/unSub/${currentVideo?.userId?._id}`,
           null,
           {
             headers: {
@@ -92,7 +92,7 @@ const CurrentVideoPage = () => {
     } else {
       try {
         await axios.put(
-          `http://35.223.72.44:5500/api/video/like/${currentVideo?._id}`,
+          `http://10.128.0.5:5500/api/video/like/${currentVideo?._id}`,
           null,
           {
             headers: {
@@ -113,7 +113,7 @@ const CurrentVideoPage = () => {
     } else {
       try {
         await axios.put(
-          `http://35.223.72.44:5500/api/video/dislike/${currentVideo?._id}`,
+          `http://10.128.0.5:5500/api/video/dislike/${currentVideo?._id}`,
           null,
           {
             headers: {
@@ -132,7 +132,7 @@ const CurrentVideoPage = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://35.223.72.44:5500/api/video/delete/${currentVideo?._id}`,
+        `http://10.128.0.5:5500/api/video/delete/${currentVideo?._id}`,
         {
           headers: {
             Authorization: `Bearer ${user?.access_token}`,
@@ -630,7 +630,7 @@ export default CurrentVideoPage;
 //     } else {
 //       try {
 //         const response = await axios.put(
-//           `http://35.223.72.44:5500/api/user/sub/${currentVideo?.userId?._id}`,
+//           `http://10.128.0.5:5500/api/user/sub/${currentVideo?.userId?._id}`,
 //           null,
 //           {
 //             headers: {
@@ -654,7 +654,7 @@ export default CurrentVideoPage;
 //     } else {
 //       try {
 //         const response = await axios.put(
-//           `http://35.223.72.44:5500/api/user/unSub/${currentVideo?.userId?._id}`,
+//           `http://10.128.0.5:5500/api/user/unSub/${currentVideo?.userId?._id}`,
 //           null,
 //           {
 //             headers: {
@@ -678,7 +678,7 @@ export default CurrentVideoPage;
 //     } else {
 //       try {
 //         await axios.put(
-//           `http://35.223.72.44:5500/api/video/like/${currentVideo?._id}`,
+//           `http://10.128.0.5:5500/api/video/like/${currentVideo?._id}`,
 //           null,
 //           {
 //             headers: {
@@ -699,7 +699,7 @@ export default CurrentVideoPage;
 //     } else {
 //       try {
 //         await axios.put(
-//           `http://35.223.72.44:5500/api/video/dislike/${currentVideo?._id}`,
+//           `http://10.128.0.5:5500/api/video/dislike/${currentVideo?._id}`,
 //           null,
 //           {
 //             headers: {
@@ -718,7 +718,7 @@ export default CurrentVideoPage;
 //   const handleDelete = async () => {
 //     try {
 //       const response = await axios.delete(
-//         `http://35.223.72.44:5500/api/video/delete/${currentVideo?._id}`,
+//         `http://10.128.0.5:5500/api/video/delete/${currentVideo?._id}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${user?.access_token}`,

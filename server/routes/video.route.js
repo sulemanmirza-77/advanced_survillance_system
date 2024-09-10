@@ -19,7 +19,7 @@ const { getAccessToRoute } = require("../middleware/auth/auth");
 const uploadFile = require("../middleware/multer/multerVideoConfig.js");
 
 /* Create a Video
-   http://35.223.72.44:5500/api/video/ (http post method) */
+   http://10.128.0.5:5500/api/video/ (http post method) */
 router.post(
   "/",
   [
@@ -32,7 +32,7 @@ router.post(
   uploadVideo
 );
 /* Edit a Video
-   http://35.223.72.44:5500/api/video/edit/:id (http put method) */
+   http://10.128.0.5:5500/api/video/edit/:id (http put method) */
 router.put(
   "/edit/:id",
   [
@@ -45,28 +45,28 @@ router.put(
   editVideo
 );
 /* Delete a video
-   http://35.223.72.44:5500/api/video/delete/:id (http delete method) */
+   http://10.128.0.5:5500/api/video/delete/:id (http delete method) */
 router.delete("/delete/:id", getAccessToRoute, deleteVideo);
 /* Get Random Videos
-   http://35.223.72.44:5500/api/video/random (http get method) */
+   http://10.128.0.5:5500/api/video/random (http get method) */
 router.get("/random", getRandomVideo);
 /* Get Some Videos
-   http://35.223.72.44:5500/api/video/some (http get method) */
+   http://10.128.0.5:5500/api/video/some (http get method) */
 router.get("/some", getSomeVideos);
 /* Get Video by Id
-   http://35.223.72.44:5500/api/video/:id (http get method) */
+   http://10.128.0.5:5500/api/video/:id (http get method) */
 router.get("/:id", getVideoById);
 /* Add View to a Video
-   http://35.223.72.44:5500/api/video/view/:id (http put method) */
+   http://10.128.0.5:5500/api/video/view/:id (http put method) */
 router.put("/view/:id", increaseView);
 /* Like a Video
-   http://35.223.72.44:5500/api/video/like/:id (http put method) */
+   http://10.128.0.5:5500/api/video/like/:id (http put method) */
 router.put("/like/:id", getAccessToRoute, likeVideo);
 /* Dislike a Video
-   http://35.223.72.44:5500/api/video/dislike/:id (http put method) */
+   http://10.128.0.5:5500/api/video/dislike/:id (http put method) */
 router.put("/dislike/:id", getAccessToRoute, dislikeVideo);
 /* Search Video by Title
-   http://35.223.72.44:5500/api/video/search/:query (http get method) */
+   http://10.128.0.5:5500/api/video/search/:query (http get method) */
 router.get("/search/:query", search);
 
 module.exports = router;

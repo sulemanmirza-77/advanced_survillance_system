@@ -19,7 +19,7 @@ app.use("/videos", express.static(path.join(__dirname, "public/videos")));
 /* Middleware */
 app.use(
   cors({
-    origin: "http://35.223.72.44:3000",
+    origin: "http://10.128.0.5:3000",
   })
 );
 app.use(express.json());
