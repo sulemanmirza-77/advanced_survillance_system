@@ -34,7 +34,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     if (req.params.id === req.user.id) {
       const updatedProfile = await User.findByIdAndUpdate(req.params.id, {
         $set: {
-          profile_image: `http://10.128.0.5:5500/images/${req.savedProfileImage}`,
+          profile_image: `http://0.0.0.0:5500/images/${req.savedProfileImage}`,
           about: req.body.about,
         },
       });
